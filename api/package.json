@@ -1,0 +1,39 @@
+{
+  "name": "nodejs-typescript-api-crud",
+  "version": "1.0.0",
+  "description": "Pequeña API REST con autenticación y un CRUD de usuarios, creada con Node JS haciendo uso de TypeScript y MySql.",
+  "main": "index.js",
+  "scripts": {
+    "build:ts": "tsc",
+    "build-prod:ts": "tsc -p .",
+    "start:dev": "nodemon dist/index.js",
+    "build-start:dev": "tsc && nodemon dist/index.js"
+  },
+  "author": "Kevin Gómez Codina",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.5",
+    "@types/mysql": "^2.15.19",
+    "copyfiles": "^2.4.1",
+    "nodemon": "^2.0.12",
+    "tsc": "^2.0.3"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "module-alias": "^2.2.2",
+    "mysql": "^2.18.1",
+    "typescript": "^4.4.2",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.5"
+  },
+  "_moduleAliases": {
+    "@app": "dist"
+  }
+}
