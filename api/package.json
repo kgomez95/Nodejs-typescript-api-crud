@@ -6,6 +6,7 @@
   "scripts": {
     "build:ts": "tsc",
     "build-prod:ts": "tsc -p .",
+    "build:dev": "tsc",
     "start:dev": "nodemon dist/index.js",
     "build-start:dev": "tsc && nodemon dist/index.js"
   },
