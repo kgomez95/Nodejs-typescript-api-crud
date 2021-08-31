@@ -1,4 +1,11 @@
 // Librerías.
 import 'module-alias/register';
 
-console.log('¡Funciona! De momento...');
+// Importaciones de core.
+import Server from '@core/server';
+
+// Iniciamos la aplicación.
+const server: Server = new Server();
+server.start();
+
+// TODO: Subir el proyecto de Postman a la documentación.

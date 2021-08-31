@@ -34,6 +34,9 @@
     "winston-daily-rotate-file": "^4.5.5"
   },
   "_moduleAliases": {
-    "@app": "dist"
+    "@app": "dist",
+    "@components": "dist/components",
+    "@configs": "dist/configs",
+    "@core": "dist/core"
   }
 }

@@ -90,3 +90,14 @@
 </ul>
 <p>* Con solo ejecutar el paso 1 ya tendríamos nuestros alias funcionando en desarrollo, pero para que nos funcione una vez compilemos y ejecutemos la aplicación es necesario haber ejecutado los pasos 2 y 3, porque sino NodeJs no será capaz de entender nuestros alias customizados.</p>
 <br />
+
+# 3.- Ficheros de configuración
+<p>En el apartado 2.1 hemos instalado un módulo llamado "dotenv", el cual sirve para leer nuestro fichero ".env". Este fichero lo tenemos que tener creado en la raíz del proyecto (en mi caso lo tengo creado en la carpeta "api") y en teoría no se puede subir al repositorio, porque este fichero puede contener información sensible (como por ejemplo, los datos de acceso a base de datos).</p>
+<p>La idea es que cuando despleguemos un proyecto en producción tengamos la configuración almacenada en variables de entorno en el propio sistema operativo de nuestro servidor. Al estar la configuración en variables de nuestro sistema operativo se nos puede hacer más "complicado" trabajar en nuestro entorno de desarrollo, y es ahí donde podemos hacer uso del fichero ".env". Básicamente, su función es almacenar variables de entorno que utilizaremos en la aplicación, y el módulo "dotenv" es el encargado de transformar las variables del fichero ".env" en variables de entorno.</p>
+<p>Esta es la estructura que tiene que tener el fichero ".env" (clave=valor):</p>
+<p><i>APP_ROUTER_PREFIX=/api<br />
+APP_PORT=5000</i></p>
+<p>Antes de leer una variable de entorno tenemos que indicarle al módulo "dotenv" la ubicación del fichero ".env", la cual se la podemos indicar de esta manera (este código lo tenéis en el fichero "src/configs/app.config.ts"):</p>
+<p><i>dotenv.config({ path: path.resolve(__dirname, '../../.env') });</i></p>
+<p>Finalmente, estas variables de entorno las podemos guardar en variables estáticas y de solo lectura para poder utilizarlas en toda la aplicación. Tenéis de ejemplo el fichero "src/configs/app.config.ts" donde almaceno el contenido de las variables, y un ejemplo de lectura lo tenéis en el fichero "src/core/app.ts", donde hago uso del config para leer el puerto para iniciar la aplicación o el uso del prefijo para inicializar las rutas de la aplicación.</p>
+<br />
