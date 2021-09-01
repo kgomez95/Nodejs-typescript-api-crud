@@ -21,6 +21,58 @@ export default class LoggerLib {
     }
 
     /**
+     * @name debug
+     * @description Muestra el mensaje proporcionado por consola y lo exporta en el fichero log como tipo "debug".
+     * @param message - Mensaje a mostrar en la consola.
+     * @param params - Parámetros a mostrar en consola.
+     */
+    public debug(message: string, params?: object): void {
+        if (LoggerConfig.SHOW_ON_CONSOLE) this.consoleLog(message, params);
+
+        if (params) this.use.debug(message, params);
+        else this.use.debug(message);
+    }
+
+    /**
+     * @name info
+     * @description Muestra el mensaje proporcionado por consola y lo exporta en el fichero log como tipo "info".
+     * @param message - Mensaje a mostrar en la consola.
+     * @param params - Parámetros a mostrar en consola.
+     */
+    public info(message: string, params?: object): void {
+        if (LoggerConfig.SHOW_ON_CONSOLE) this.consoleLog(message, params);
+
+        if (params) this.use.info(message, params);
+        else this.use.info(message);
+    }
+
+    /**
+     * @name warn
+     * @description Muestra el mensaje proporcionado por consola y lo exporta en el fichero log como tipo "warn".
+     * @param message - Mensaje a mostrar en la consola.
+     * @param params - Parámetros a mostrar en consola.
+     */
+    public warn(message: string, params?: object): void {
+        if (LoggerConfig.SHOW_ON_CONSOLE) this.consoleLog(message, params);
+
+        if (params) this.use.warn(message, params);
+        else this.use.warn(message);
+    }
+
+    /**
+     * @name error
+     * @description Muestra el mensaje proporcionado por consola y lo exporta en el fichero log como tipo "error".
+     * @param message - Mensaje a mostrar en la consola.
+     * @param params - Parámetros a mostrar en consola.
+     */
+    public error(message: string, params?: object): void {
+        if (LoggerConfig.SHOW_ON_CONSOLE) this.consoleLog(message, params);
+
+        if (params) this.use.error(message, params);
+        else this.use.error(message);
+    }
+
+    /**
      * @name createLogger
      * @returns Crea una instancia de Logger y la retorna.
      */
@@ -56,5 +108,16 @@ export default class LoggerLib {
 
             return msg;
         });
+    }
+
+    /**
+     * @name consoleLog
+     * @description Muestra el mensaje proporcionado en consola.
+     * @param message - Mensaje a mostrar en la consola.
+     * @param params - Parámetros a mostrar en consola.
+     */
+    private consoleLog(message: string, params?: object): void {
+        if (params) console.log(`${message} ${JSON.stringify(params)}`);
+        else console.log(message);
     }
 }

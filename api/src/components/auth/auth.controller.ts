@@ -5,17 +5,22 @@ import { Request, Response } from 'express';
 import BaseController from '@core/base-components/base.controller';
 import { ApiResponse } from '@core/models/api/api-response.model';
 import { ApiRequest } from '@core/models/api/api-request.model';
+import { LoginDTO } from '@core/db-models/logins/login.dto-model';
 
 // Importaciones del componente.
 import { LoginBody } from './models/login-body.model';
+import AuthService from './auth.service';
 
 /**
  * @name AuthController
  * @description Controlador que almacena las acciones de la parte de autenticación.
  */
 export default class AuthController extends BaseController {
+    private authService: AuthService;
+    
     constructor() {
         super('/auth');
+        this.authService = new AuthService();
     }
 
     /**
@@ -34,7 +39,7 @@ export default class AuthController extends BaseController {
      */
     public async login(req: Request, res: Response): Promise<any> {
         let request: ApiRequest<LoginBody> = new ApiRequest<LoginBody>();
-        let response: ApiResponse<string> = new ApiResponse<string>();
+        let response: ApiResponse<LoginDTO> = new ApiResponse<LoginDTO>();
 
         try {
             // Cogemos la petición comprobando a la vez que tenga los campos obligatorios informados.
@@ -43,8 +48,8 @@ export default class AuthController extends BaseController {
             // Comprobamos si los datos la petición tiene los campos obligatorios informados.
             this.checkRequiredData(request.data, 'username', 'password');
 
-            // Llamamos al servicio para hacer logins y construir la respuesta.
-            response.data = 'Esto es el login.';
+            // Llamamos al servicio para hacer login y construir la respuesta.
+            response.data = await this.authService.doLogin(request.data as LoginBody);
             response.status = 200;
         } catch (ex) {
             // NOTE: Si la contraseña viene informada debemos quitarla para no pintarla en los logs.

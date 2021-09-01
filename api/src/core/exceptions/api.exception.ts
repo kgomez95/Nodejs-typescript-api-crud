@@ -61,7 +61,7 @@ export class ApiException extends Error {
      * @param exception - Excepción a guardar.
      * @returns Retorna la propia instancia ApiException.
      */
-    public setException(exception: Error): ApiException {
+    public setException(exception: any): ApiException {
         this.exception = exception;
         return this;
     }

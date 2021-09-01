@@ -5,10 +5,12 @@
   "main": "index.js",
   "scripts": {
     "build:ts": "tsc",
-    "build-prod:ts": "tsc -p .",
-    "build:dev": "tsc",
+    "copy:sql": "copyfiles --error --up 1 src/components/*/db-queries/*.sql dist",
+
+    "build-prod:ts": "tsc -p . && copyfiles --error --up 1 src/components/*/db-queries/*.sql dist",
+    "build:dev": "tsc && copyfiles --error --up 1 src/components/*/db-queries/*.sql dist",
     "start:dev": "nodemon dist/index.js",
-    "build-start:dev": "tsc && nodemon dist/index.js"
+    "build-start:dev": "tsc && copyfiles --error --up 1 src/components/*/db-queries/*.sql dist && nodemon dist/index.js"
   },
   "author": "Kevin Gómez Codina",
   "license": "ISC",

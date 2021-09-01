@@ -4,6 +4,8 @@ import cors from 'cors';
 
 // Importaciones de core.
 import BaseController from '@core/base-components/base.controller';
+import MySql from '@core/database';
+import { Logger } from '@core/libs';
 
 // Configs.
 import AppConfig from '@configs/app.config';
@@ -28,7 +30,9 @@ export default class App {
      */
     public start(): void {
         this.app.listen(AppConfig.PORT, () => {
-            console.log(`La aplicación está escuchando en http://localhost:${AppConfig.PORT}.`);
+            // Inicializa la conexión con la base de datos.
+            MySql.instance;
+            Logger.info(`La aplicación está escuchando en http://localhost:${AppConfig.PORT}.`);
         });
     }
 
