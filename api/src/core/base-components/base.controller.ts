@@ -113,23 +113,7 @@ export default abstract class BaseController {
         }
 
         // Trazamos el log en caso de tener que hacerlo.
-        if (showLog) {
-            switch (logLevel) {
-                case LoggerConstants.LEVEL_DEBUG:
-                    Logger.debug(logMessage, { request, ex });
-                    break;
-                case LoggerConstants.LEVEL_INFO:
-                    Logger.info(logMessage, { request, ex });
-                    break;
-                case LoggerConstants.LEVEL_WARNING:
-                    Logger.warn(logMessage, { request, ex });
-                    break;
-                case LoggerConstants.LEVEL_ERROR:
-                default:
-                    Logger.error(logMessage, { request, ex });
-                    break;
-            }
-        }
+        if (showLog) Logger.write(logLevel, logMessage, { request, ex });
 
         return response;
     }

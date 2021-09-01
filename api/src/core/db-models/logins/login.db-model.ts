@@ -25,7 +25,6 @@ export class Login {
         return {
             id: login.id,
             username: login.username,
-            password: '',
             enabled: login.enabled,
             created_at: login.created_at,
             updated_at: login.updated_at

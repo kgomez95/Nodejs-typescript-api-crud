@@ -1,6 +1,8 @@
 // Importaciones de core.
 import { LoginDTO } from '@core/db-models/logins/login.dto-model';
 import { Login } from '@core/db-models/logins/login.db-model';
+import { Bcrypt, Jwt } from '@core/libs';
+import { ApiException } from '@core/exceptions/api.exception';
 
 // Importaciones del componente.
 import { LoginBody } from "./models/login-body.model";
@@ -28,12 +30,17 @@ export default class AuthService {
         let userDTO: LoginDTO;
         let user: Login = await this.authRepository.getLogin(body.username);
 
-        // TODO: Comprobar si la contraseña es correcta.
+        // Comprobamos si la contraseña es correcta, si es así la vaciamos para no retornarla.
+        if (!await Bcrypt.compare(body.password, user.password)) {
+            throw new ApiException(401, false)
+                .setError('ERR-401', 'La contraseña no es correcta.');
+        }
 
         // Mapeamos el objeto a DTO.
         userDTO = Login.toDTO(user);
 
-        // TODO: Generar token de autenticación.
+        // Generamos el token para el usuario.
+        userDTO.token = Jwt.sign(userDTO);
 
         return userDTO;
     }

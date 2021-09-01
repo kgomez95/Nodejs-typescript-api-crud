@@ -3,6 +3,9 @@ import winston, { Logger } from 'winston';
 import { Format } from 'logform';
 import 'winston-daily-rotate-file';
 
+// Importaciones de core.
+import LoggerConstants from '@core/constants/logger.constants';
+
 // Configs.
 import LoggerConfig from '@configs/logger.config';
 
@@ -18,6 +21,31 @@ export default class LoggerLib {
      */
     public get use(): Logger {
         return this.createLogger();
+    }
+
+    /**
+     * @name write
+     * @description Traza un mensaje en los logs con el nivel de log especificado por parámetros.
+     * @param logLevel - Nivel de log a trazar (debug, info, warn, error).
+     * @param message - Mensaje a trazar.
+     * @param params - Parámetros a trazar (opcionales).
+     */
+    public write(logLevel: string, message: string, params?: object): void {
+        switch (logLevel) {
+            case LoggerConstants.LEVEL_DEBUG:
+                this.debug(message, params);
+                break;
+            case LoggerConstants.LEVEL_INFO:
+                this.info(message, params);
+                break;
+            case LoggerConstants.LEVEL_WARNING:
+                this.warn(message, params);
+                break;
+            case LoggerConstants.LEVEL_ERROR:
+            default:
+                this.error(message, params);
+                break;
+        }
     }
 
     /**
