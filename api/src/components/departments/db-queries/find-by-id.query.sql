@@ -1,0 +1,3 @@
+SELECT dep.*
+FROM DEPARTMENTS dep
+WHERE dep.id = ?

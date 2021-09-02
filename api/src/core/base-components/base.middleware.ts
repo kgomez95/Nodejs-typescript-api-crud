@@ -4,6 +4,10 @@ import { Logger } from '@core/libs';
 import { ApiException } from '@core/exceptions/api.exception';
 import LoggerConstants from '@core/constants/logger.constants';
 
+/**
+ * @name BaseMiddleware
+ * @description Middleware base de la aplicación.
+ */
 export default abstract class BaseMiddleware {
     constructor() { }
 

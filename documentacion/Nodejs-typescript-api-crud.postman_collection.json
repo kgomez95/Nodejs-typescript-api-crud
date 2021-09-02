@@ -235,13 +235,22 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzA1OTYwODIsImV4cCI6MTYzMDU5OTY4Mn0.-Salya3tXvE_tqK0IBpDWW9B7mxYuhCirATCf6vqfVY",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzA2MDM2NjEsImV4cCI6MTYzMDYwNzI2MX0.qaerEB0f-vn3d1DC2PtAr-maFcbqmheeyuOHyd2YuOE",
 											"type": "string"
 										}
 									]
 								},
 								"method": "POST",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"data\": {\r\n        \"code\": \"it\",\r\n        \"name\": \"The IT Crowd\",\r\n        \"description\": \"Los informáticos.\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
 									"raw": "http://localhost:5000/api/departments/create",
 									"protocol": "http",
