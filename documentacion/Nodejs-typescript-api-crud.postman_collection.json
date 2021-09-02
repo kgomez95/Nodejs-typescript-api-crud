@@ -194,6 +194,73 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Departments",
+			"item": [
+				{
+					"name": "Create",
+					"item": [
+						{
+							"name": "Errors",
+							"item": [
+								{
+									"name": "Create_(403)",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:5000/api/departments/create",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5000",
+											"path": [
+												"api",
+												"departments",
+												"create"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Create_(200)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzA1OTYwODIsImV4cCI6MTYzMDU5OTY4Mn0.-Salya3tXvE_tqK0IBpDWW9B7mxYuhCirATCf6vqfVY",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/departments/create",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"departments",
+										"create"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
 		}
 	]
 }
