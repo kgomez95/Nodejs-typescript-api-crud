@@ -30,7 +30,7 @@ export default class DepartmentsController extends BaseController {
      * @description Inicializa las rutas del controlador.
      */
     protected override initRoutes(): void {
-        this._router.post(`${this.prefix}/getDepartments`, authorize, this.getDepartments.bind(this));
+        this._router.get(`${this.prefix}/getDepartments`, authorize, this.getDepartments.bind(this));
         this._router.post(`${this.prefix}/create`, authorize, this.create.bind(this));
     }
 

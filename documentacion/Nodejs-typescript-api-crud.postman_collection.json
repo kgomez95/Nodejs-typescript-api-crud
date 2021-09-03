@@ -274,18 +274,21 @@
 					"item": [
 						{
 							"name": "GetDepartments_(200)",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzA2ODkzNjksImV4cCI6MTYzMDY5Mjk2OX0.f_wXunkIblxH4o1yNZJ0ns0-5mvSFA1LwGit5RZtjrM",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzA2OTYzMDAsImV4cCI6MTYzMDY5OTkwMH0.rCPI_7ePH3iKP3E-0rqXPMSUig_MuKyIZxI8pSKvjSY",
 											"type": "string"
 										}
 									]
 								},
-								"method": "POST",
+								"method": "GET",
 								"header": [],
 								"body": {
 									"mode": "raw",
