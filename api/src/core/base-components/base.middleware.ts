@@ -8,7 +8,7 @@ import LoggerConstants from '@core/constants/logger.constants';
  * @name BaseMiddleware
  * @description Middleware base de la aplicación.
  */
-export default abstract class BaseMiddleware {
+export default class BaseMiddleware {
     constructor() { }
 
     /**

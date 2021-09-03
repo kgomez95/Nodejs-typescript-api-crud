@@ -6,15 +6,18 @@ import path from 'path';
 import { ApiException } from '@core/exceptions/api.exception';
 import MySql from '@core/database';
 import { Login } from "@core/db-models/logins/login.db-model";
+import BaseRepository from '@core/base-components/base.repository';
 
 /**
  * @name AuthRepository
  * @description Repositorio para el componente de autenticación, encargado de realizar consultas a base de datos.
  */
-export default class AuthRepository {
+export default class AuthRepository extends BaseRepository {
     private static _getLoginQuery: string = '';
 
-    constructor() { }
+    constructor() {
+        super();
+    }
 
     /**
      * @name getLogin

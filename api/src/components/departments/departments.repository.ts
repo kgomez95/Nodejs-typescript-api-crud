@@ -6,16 +6,21 @@ import path from 'path';
 import { ApiException } from '@core/exceptions/api.exception';
 import MySql from '@core/database';
 import { Department } from '@core/db-models/departments/department.db-model';
+import BaseRepository from '@core/base-components/base.repository';
+import { SqlFilter } from '@core/models/sql/sql-filter.model';
 
 /**
  * @name DepartmentsRepository
  * @description Repositorio para el componente de departamentos, encargado de realizar consultas a base de datos.
  */
-export default class DepartmentsRepository {
+export default class DepartmentsRepository extends BaseRepository {
     private static _findByIdQuery: string = '';
     private static _insertQuery: string = '';
+    private static _findQuery: string = '';
 
-    constructor() { }
+    constructor() {
+        super();
+    }
 
     /**
      * @name findById
@@ -40,6 +45,35 @@ export default class DepartmentsRepository {
                 throw new ApiException(500)
                     .setError('ERR-500', `Se ha producido un problema al intentar recuperar el departamento en base de datos.`)
                     .setLogMessage(`DepartmentRepository -> findById -> Se ha producido un error al intentar recuperar el departamento '${id}' en base de datos.`)
+                    .setException(ex)
+                    .setAsError();
+            }
+        }
+    }
+
+    /**
+     * @name find
+     * @description Realiza una búsqueda de departamentos en base de datos.
+     * @param filters - Filtros a aplicar en la búsqueda.
+     * @returns Retorna un listado de departamentos o una excepción.
+     */
+    public async find(filters: SqlFilter[]): Promise<Department[]> {
+        try {
+            let result: Department[] = await MySql.executeQueryParameters(this.findQuery + this.buildFilters(filters), this.getFilterValues(filters));
+            if (!result[0])
+                throw new ApiException(204)
+                    .setError('ERR-204', `No se han encontrado departamentos.`)
+                    .setLogMessage(`DepartmentRepository -> find -> No se han podido coger los departamento: ${JSON.stringify(filters)}`)
+                    .setAsDebug();
+            return result;
+        } catch (ex) {
+            if (ex instanceof ApiException) {
+                throw ex;
+            }
+            else {
+                throw new ApiException(500)
+                    .setError('ERR-500', `Se ha producido un problema al intentar recuperar los departamentos en base de datos.`)
+                    .setLogMessage(`DepartmentRepository -> find -> Se ha producido un error al intentar recuperar los departamentos de base de datos: ${JSON.stringify(filters)}`)
                     .setException(ex)
                     .setAsError();
             }
@@ -94,6 +128,16 @@ export default class DepartmentsRepository {
     private get insertQuery(): string {
         return DepartmentsRepository._insertQuery || (
             DepartmentsRepository._insertQuery = fs.readFileSync(path.resolve(__dirname, './db-queries/insert.query.sql'), 'utf8')
+        );
+    }
+
+    /**
+     * @name findQuery
+     * @description Coge la query sql "find" de la carpeta db-queries, la carga en memoria y la retorna.
+     */
+     private get findQuery(): string {
+        return DepartmentsRepository._findQuery || (
+            DepartmentsRepository._findQuery = fs.readFileSync(path.resolve(__dirname, './db-queries/find.query.sql'), 'utf8')
         );
     }
 }

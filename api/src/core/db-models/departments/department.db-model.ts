@@ -31,4 +31,22 @@ export class Department {
             updated_at: department.updated_at
         };
     }
+
+    /**
+     * @name toDTOArray
+     * @description Mapea el listado de departamentos a departamentos DTO.
+     * @param departments - Listado de departamentos.
+     * @returns Retorna el listado de departamentos mapeados.
+     */
+    public static toDTOArray(departments: Department[]): DepartmentDTO[] {
+        let dtoDepartments: DepartmentDTO[] = [];
+
+        if (!departments) return dtoDepartments;
+
+        departments.forEach((department: Department) => {
+            dtoDepartments.push(this.toDTO(department));
+        });
+
+        return dtoDepartments;
+    }
 }
