@@ -449,6 +449,112 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Delete",
+					"item": [
+						{
+							"name": "Errors",
+							"item": [
+								{
+									"name": "Delete_(404)_01",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzA3NTIxNzAsImV4cCI6MTYzMDc1NTc3MH0.KW6ycqf1f6L4w2Mf3Au-RLgklJqt2Esi3DrBO8aoECQ",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:5000/api/departments/delete/69",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5000",
+											"path": [
+												"api",
+												"departments",
+												"delete",
+												"69"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete_(400)_01",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzA3NTIxNzAsImV4cCI6MTYzMDc1NTc3MH0.KW6ycqf1f6L4w2Mf3Au-RLgklJqt2Esi3DrBO8aoECQ",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:5000/api/departments/delete/pruebaError",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5000",
+											"path": [
+												"api",
+												"departments",
+												"delete",
+												"pruebaError"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Delete_(204)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzA3NTIxNzAsImV4cCI6MTYzMDc1NTc3MH0.KW6ycqf1f6L4w2Mf3Au-RLgklJqt2Esi3DrBO8aoECQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/departments/delete/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"departments",
+										"delete",
+										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}

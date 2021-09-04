@@ -32,11 +32,12 @@ export default class DepartmentsController extends BaseController {
      * @description Inicializa las rutas del controlador.
      */
     protected override initRoutes(): void {
+        // NOTE: El 'authorize' es una importación del 'auth-middleware' y su comentido es comprobar que el peticionario
+        //       esté identificado en la aplicación antes de proceder a resolver su solicitud.
         this._router.get(`${this.prefix}/getDepartments`, authorize, this.getDepartments.bind(this));
         this._router.post(`${this.prefix}/create`, authorize, this.create.bind(this));
         this._router.put(`${this.prefix}/update/:id`, authorize, this.update.bind(this));
-
-        // TODO: Crear una acción de tipo DELETE para borrar.
+        this._router.delete(`${this.prefix}/delete/:id`, authorize, this.delete.bind(this));
     }
 
     /**
@@ -121,6 +122,38 @@ export default class DepartmentsController extends BaseController {
             }
         } catch (ex) {
             response = this.getResponseException(ex, 'DepartmentsController -> create -> Se ha producido una excepción general no controlada.', request);
+        }
+
+        res.status(response.status).json(response);
+    }
+
+    /**
+     * @name delete
+     * @description Gestiona la petición para borrar un departamento.
+     * @param req - Petición del cliente.
+     * @param res - Respuesta de la API.
+     */
+    public async delete(req: Request, res: Response): Promise<any> {
+        let id: number;
+        let response: ApiResponse<any> = new ApiResponse<any>();
+
+        try {
+            // Cogemos el identificador del departamento a borrar.
+            id = Number.parseInt(req.params.id);
+
+            if (!Number.isNaN(id)) {
+                // Llamamos al servicio para borrar el departamento.
+                await this.departmentsService.deleteDepartment(id);
+                response.status = 204;
+            }
+            else {
+                throw new ApiException(400)
+                    .setError('ERR-400', `El identificador '${req.params.id}' no es válido.`, 'El valor proporcionado no corresponde a un identificador de departamentos.')
+                    .setLogMessage(`DepartmentsController -> delete -> El identificador proporcionado del departamento no es válido: '${req.params.id}'`)
+                    .setAsWarning();
+            }
+        } catch (ex) {
+            response = this.getResponseException(ex, 'DepartmentsController -> delete -> Se ha producido una excepción general no controlada.', req.params.id);
         }
 
         res.status(response.status).json(response);

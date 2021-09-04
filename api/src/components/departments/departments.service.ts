@@ -86,4 +86,14 @@ export default class DepartmentsService extends BaseService {
         let department: Department = await this.departmentsRepository.update(id, updaters);
         return Department.toDTO(department);
     }
+
+    /**
+     * @name deleteDepartment
+     * @description Borra el departamento proporcionado por parámetros.
+     * @param id - Identificador del departamento a borrar.
+     * @returns Retorna "true" en caso de borrar el departamento o una excepción.
+     */
+    public async deleteDepartment(id: number): Promise<boolean> {
+        return await this.departmentsRepository.delete(id);
+    }
 }

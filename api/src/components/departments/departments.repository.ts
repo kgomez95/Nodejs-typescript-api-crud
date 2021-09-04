@@ -19,6 +19,7 @@ export default class DepartmentsRepository extends BaseRepository {
     private static _insertQuery: string = '';
     private static _findQuery: string = '';
     private static _updateQuery: string = '';
+    private static _deleteQuery: string = '';
 
     constructor() {
         super();
@@ -144,6 +145,37 @@ export default class DepartmentsRepository extends BaseRepository {
     }
 
     /**
+     * @name delete
+     * @description Borra el departamento proporcionado de base de datos.
+     * @param id - Identificador del departamento a borrar.
+     * @returns Retorna "true" en caso de borrar el departamento o una excepción.
+     */
+    public async delete(id: number): Promise<boolean> {
+        try {
+            let result: any = await MySql.executeQueryParameters(this.deleteQuery, [id]);
+            if (!result || !result.affectedRows)
+                throw new ApiException(404)
+                    .setError('ERR-404', `No se ha podido borrar el departamento '${id}'.`)
+                    .setLogMessage(`DepartmentRepository -> delete -> No se ha podido borrar el departamento '${id}'.`)
+                    .setAsWarning();
+            return true;
+        } catch (ex) {
+            if (ex instanceof ApiException) {
+                throw ex;
+            }
+            else {
+                throw new ApiException(500)
+                    .setError('ERR-500', `Se ha producido un problema al intentar borrar el departamento '${id}' en base de datos.`)
+                    .setLogMessage(`DepartmentRepository -> delete -> Se ha producido un error al intentar borrar el departamento '${id}' en base de datos.`)
+                    .setException(ex)
+                    .setAsError();
+            }
+        }
+    }
+
+    //#region - Funciones para coger las queries de base de datos.
+
+    /**
      * @name findByIdQuery
      * @description Coge la query sql "findById" de la carpeta db-queries, la carga en memoria y la retorna.
      */
@@ -185,4 +217,16 @@ export default class DepartmentsRepository extends BaseRepository {
         );
         return query.replace(':updaters', updaters);
     }
+
+    /**
+     * @name deleteQuery
+     * @description Coge la query sql "delete" de la carpeta db-queries, la carga en memoria y la retorna.
+     */
+    private get deleteQuery(): string {
+        return DepartmentsRepository._deleteQuery || (
+            DepartmentsRepository._deleteQuery = fs.readFileSync(path.resolve(__dirname, './db-queries/delete.query.sql'), 'utf8')
+        );
+    }
+
+    //#endregion
 }
