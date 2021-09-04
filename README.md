@@ -13,7 +13,7 @@
 <ul>
     <li><b>1.- </b>Abrir la carpeta donde tenemos el proyecto (en mi caso "Nodejs-typescript-api-crud/api") desde la línea de comandos.</li>
     <li><b>2.- </b>Ejecutar el comando <b><i>npm install</i></b> para instalar todos los módulos que hay registrados en el fichero "package.json".</li>
-    <li><b>3.- </b>Crear el fichero ".env" en la carpeta del proyecto (en mi caso "Nodejs-typescript-api-crud/api") basandonos en la estructura del fichero "estructura_env.txt" que tenéis en la carpeta "documentacion" en este repositorio.</li>
+    <li><b>3.- </b>Crear el fichero ".env" en la carpeta del proyecto (en mi caso "Nodejs-typescript-api-crud/api") basándonos en la estructura del fichero "estructura_env.txt" que tenéis en la carpeta "documentacion" en este repositorio.</li>
     <li><b>4.- </b>Ejecutar el comando <b><i>npm run build:dev</i></b> para compilar el proyecto (esto nos creará automáticamente la carpeta "dist").</li>
     <li><b>5.- </b>Ejecutar el comando <b><i>npm run start:dev</i></b> para ejecutar la aplicación (esto ejecuta la aplicación desde la carpeta "dist").</li>
 </ul>
@@ -25,7 +25,7 @@
 <ul>
     <li>Abrir Postman.</li>
     <li>Abrir la pestaña "File" (arriba a la izquierda) y hacer clic en "Import".</li>
-    <li>Seleccionar el fichero "Nodejs-typescript-api-crud.postman_collection.json" e importalo.</li>
+    <li>Seleccionar el fichero "Nodejs-typescript-api-crud.postman_collection.json" e impórtalo.</li>
 </ul>
 <br />
 
@@ -89,7 +89,7 @@
 <br />
 
 <h2>2.3.- Configuración de scripts del fichero "package.json"</h2>
-<p>Lo siguentes es configurar una serie de scripts que nos facilite la ejecución de comandos, para eso editaremos la seción "scripts" del fichero "package.json" añadiendo los siguientes scripts:</p>
+<p>Lo siguiente es configurar una serie de scripts que nos facilite la ejecución de comandos, para eso editaremos la sección "scripts" del fichero "package.json" añadiendo los siguientes scripts:</p>
 <ul>
     <li>"build:ts": "tsc"</li>
     <li>"build-prod:ts": "tsc -p ."</li>
@@ -137,7 +137,7 @@ APP_PORT=5000</i></p>
 <p>La configuración la tenemos que especificar en el fichero ".env" o en variables de entorno en nuestro sistema operativo. Los configs o variables que tenemos que crear son los siguientes (tenéis la plantilla de mi fichero ".env" en esta ruta del repositorio "documentacion/estructura_env.txt"):</p>
 <ul>
     <li><b><i>LOGGER_LEVEL</i></b>, indica el tipo de traza que vamos a pintar en el fichero log (debug, warn, info, error...).</li>
-    <li><b><i>LOGGER_PATH</i></b>, indica la ruta del fichero log teniendo en cuenta que la instancia se crea dentro de la carpeta "dist/core", en caso de querer exportar las trazas en el directorio "dist/logs" tendremos que indicar la ruta relativa en este config como si estuviesemos dentro de la ruta "dist/core" (por ejemplo: "<i>../logs/log_%DATE%.log</i>"). Esto es porque la instancia de la aplicación se inicializa dentro de la carpeta "src/core" en el fichero "app.ts".</li>
+    <li><b><i>LOGGER_PATH</i></b>, indica la ruta del fichero log teniendo en cuenta que la instancia se crea dentro de la carpeta "dist/core", en caso de querer exportar las trazas en el directorio "dist/logs" tendremos que indicar la ruta relativa en este config como si estuviésemos dentro de la ruta "dist/core" (por ejemplo: "<i>../logs/log_%DATE%.log</i>"). Esto es porque la instancia de la aplicación se inicializa dentro de la carpeta "src/core" en el fichero "app.ts".</li>
     <li><b><i>LOGGER_DATE_PATTERN</i></b>, indica el formato de la fecha que se le aplicará al nombre del fichero log.</li>
     <li><b><i>LOGGER_MAX_SIZE</i></b>, indica la capacidad máxima del fichero log (por ejemplo "15m", que equivale a 15 megabytes).</li>
 </ul>
