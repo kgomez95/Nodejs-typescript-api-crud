@@ -4,6 +4,8 @@ import { Department } from '@core/db-models/departments/department.db-model';
 import { DepartmentDTO } from '@core/db-models/departments/department.dto-model';
 import OperatorTypesConstants from '@core/constants/sql/operator-types.constants';
 import BaseService from '@core/base-components/base.service';
+import { SqlUpdater } from '@core/models/sql/sql-updater.model';
+import { ApiException } from '@core/exceptions/api.exception';
 
 // Configs.
 import SqlConfig from '@configs/sql.config';
@@ -12,6 +14,7 @@ import SqlConfig from '@configs/sql.config';
 import DepartmentsRepository from './departments.repository';
 import { CreateBody } from './models/create-body.model';
 import { GetDepartmentsBody } from './models/get-departments-body.model';
+import { UpdateBody } from './models/update-body.model';
 
 /**
  * @name DepartmentsService
@@ -57,6 +60,30 @@ export default class DepartmentsService extends BaseService {
      */
     public async createDepartment(body: CreateBody): Promise<DepartmentDTO> {
         let department: Department = await this.departmentsRepository.insert(body.code, body.name, body.description);
+        return Department.toDTO(department);
+    }
+
+    /**
+     * @name updateDepartment
+     * @description Actualiza el departamento proporcionado por parámetros.
+     * @param id - Identificador del departamento a actualizar.
+     * @param body - Datos del departamento a actualizar.
+     * @returns Retorna el departamento actualizado o una excepción.
+     */
+    public async updateDepartment(id: number, body: UpdateBody): Promise<DepartmentDTO> {
+        let updaters: SqlUpdater[] = [];
+
+        // Creamos el listado de campos a actualizar.
+        this.getSqlUpdater('name', body.name, updaters);
+        this.getSqlUpdater('description', body.description, updaters);
+
+        if (updaters.length === 0)
+            throw new ApiException(400)
+                .setError('ERR-400', `No se ha especificado ningún campo para actualizar.`)
+                .setLogMessage(`DepartmentsService -> updateDepartment -> No se ha especificado ningún campo para actualizar.`)
+                .setAsError();
+
+        let department: Department = await this.departmentsRepository.update(id, updaters);
         return Department.toDTO(department);
     }
 }

@@ -1,0 +1,2 @@
+UPDATE DEPARTMENTS :updaters
+WHERE id = ?

@@ -7,11 +7,13 @@ import { authorize } from '@core/middlewares/auth-middleware';
 import { ApiResponse } from '@core/models/api/api-response.model';
 import { ApiRequest } from '@core/models/api/api-request.model';
 import { DepartmentDTO } from '@core/db-models/departments/department.dto-model';
+import { ApiException } from '@core/exceptions/api.exception';
 
 // Importaciones del componente.
 import { CreateBody } from './models/create-body.model';
 import DepartmentsService from './departments.service';
 import { GetDepartmentsBody } from './models/get-departments-body.model';
+import { UpdateBody } from './models/update-body.model';
 
 /**
  * @name DepartmentsController
@@ -32,6 +34,9 @@ export default class DepartmentsController extends BaseController {
     protected override initRoutes(): void {
         this._router.get(`${this.prefix}/getDepartments`, authorize, this.getDepartments.bind(this));
         this._router.post(`${this.prefix}/create`, authorize, this.create.bind(this));
+        this._router.put(`${this.prefix}/update/:id`, authorize, this.update.bind(this));
+
+        // TODO: Crear una acción de tipo DELETE para borrar.
     }
 
     /**
@@ -78,6 +83,42 @@ export default class DepartmentsController extends BaseController {
             // Llama al servicio para crear el departamento.
             response.data = await this.departmentsService.createDepartment(request.data as CreateBody);
             response.status = 200;
+        } catch (ex) {
+            response = this.getResponseException(ex, 'DepartmentsController -> create -> Se ha producido una excepción general no controlada.', request);
+        }
+
+        res.status(response.status).json(response);
+    }
+
+    /**
+     * @name update
+     * @description Gestiona la petición para acualizar un departamento.
+     * @param req - Petición del cliente.
+     * @param res - Respuesta de la API.
+     */
+    public async update(req: Request, res: Response): Promise<any> {
+        let id: number;
+        let request: ApiRequest<UpdateBody> = new ApiRequest<UpdateBody>();
+        let response: ApiResponse<DepartmentDTO> = new ApiResponse<DepartmentDTO>();
+
+        try {
+            // Cogemos el identificador del departamento a actualizar.
+            id = Number.parseInt(req.params.id);
+
+            // Cogemos la petición comprobando a la vez que tenga los campos obligatorios informados.
+            request = this.getRequest<DepartmentDTO>(req.body);
+
+            if (!Number.isNaN(id)) {
+                // Llamamos al servicio para actualizar el departamento.
+                response.data = await this.departmentsService.updateDepartment(id, request.data as UpdateBody);
+                response.status = 200;
+            }
+            else {
+                throw new ApiException(400)
+                    .setError('ERR-400', `El identificador '${req.params.id}' no es válido.`, 'El valor proporcionado no corresponde a un identificador de departamentos.')
+                    .setLogMessage(`DepartmentsController -> update -> El identificador proporcionado del departamento no es válido: '${req.params.id}'`)
+                    .setAsWarning();
+            }
         } catch (ex) {
             response = this.getResponseException(ex, 'DepartmentsController -> create -> Se ha producido una excepción general no controlada.', request);
         }

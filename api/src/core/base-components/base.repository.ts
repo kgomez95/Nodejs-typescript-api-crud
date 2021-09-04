@@ -1,5 +1,6 @@
 // Importaciones de core.
 import { SqlFilter } from '@core/models/sql/sql-filter.model';
+import { SqlUpdater } from '@core/models/sql/sql-updater.model';
 
 /**
  * @name BaseRepository
@@ -36,6 +37,43 @@ export default class BaseRepository {
 
         filters.forEach((filter: SqlFilter) => {
             values.push(filter.format.replace('{0}', filter.value));
+        });
+
+        return values;
+    }
+
+    /**
+     * @name buildUpdaters
+     * @description Construye los campos sql a actualizar proporcionados por parámetros.
+     * @param updaters - Listado de campos sql a actualizar.
+     * @returns Retorna la cadena con los campos construidos.
+     */
+    protected buildUpdaters(updaters: SqlUpdater[]): string {
+        let setUpdater: string = '';
+
+        updaters.forEach((updater: SqlUpdater) => {
+            setUpdater += `, ${updater.key} = ?`;
+        });
+
+        return (setUpdater) ? ' SET ' + setUpdater.slice(2) : '';
+    }
+
+    /**
+     * @name getUpdaterValues
+     * @description Coge los valores de los campos a actualizar.
+     * @param updaters - Listado de campos sql a actualizar.
+     * @param moreValues - Más valores para añadir en los parámetros de la sentencia sql.
+     * @returns Retorna los valores de los campos a actualizar en un listado.
+     */
+    protected getUpdaterValues(updaters: SqlUpdater[], ...moreValues: any[]): any[] {
+        let values: any[] = [];
+
+        updaters.forEach((updater: SqlUpdater) => {
+            values.push(updater.value);
+        });
+
+        moreValues.forEach((value: any) => {
+            values.push(value);
         });
 
         return values;

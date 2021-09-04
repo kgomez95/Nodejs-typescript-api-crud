@@ -8,6 +8,7 @@ import MySql from '@core/database';
 import { Department } from '@core/db-models/departments/department.db-model';
 import BaseRepository from '@core/base-components/base.repository';
 import { SqlFilter } from '@core/models/sql/sql-filter.model';
+import { SqlUpdater } from '@core/models/sql/sql-updater.model';
 
 /**
  * @name DepartmentsRepository
@@ -17,6 +18,7 @@ export default class DepartmentsRepository extends BaseRepository {
     private static _findByIdQuery: string = '';
     private static _insertQuery: string = '';
     private static _findQuery: string = '';
+    private static _updateQuery: string = '';
 
     constructor() {
         super();
@@ -112,6 +114,36 @@ export default class DepartmentsRepository extends BaseRepository {
     }
 
     /**
+     * @name update
+     * @description Actualiza el departamento proporcionado en base de datos.
+     * @param id - Identificador del departamento a actualizar.
+     * @param updaters - Listado de campos a actualizar.
+     * @returns Retorna el departamento actualizado o un excepción.
+     */
+    public async update(id: number, updaters: SqlUpdater[]): Promise<Department> {
+        try {
+            let result: any = await MySql.executeQueryParameters(this.updateQuery(this.buildUpdaters(updaters)), this.getUpdaterValues(updaters, id));
+            if (!result || !result.affectedRows)
+                throw new ApiException(404)
+                    .setError('ERR-404', `No se ha podido actualizar el departamento '${id}'.`)
+                    .setLogMessage(`DepartmentRepository -> update -> No se ha podido actualizar el departamento '${id}'.`)
+                    .setAsWarning();
+            return await this.findById(id);
+        } catch (ex) {
+            if (ex instanceof ApiException) {
+                throw ex;
+            }
+            else {
+                throw new ApiException(500)
+                    .setError('ERR-500', `Se ha producido un problema al intentar actualizar el departamento '${id}' en base de datos.`)
+                    .setLogMessage(`DepartmentRepository -> update -> Se ha producido un error al intentar actualizar el departamento '${id}' en base de datos.`)
+                    .setException(ex)
+                    .setAsError();
+            }
+        }
+    }
+
+    /**
      * @name findByIdQuery
      * @description Coge la query sql "findById" de la carpeta db-queries, la carga en memoria y la retorna.
      */
@@ -135,9 +167,22 @@ export default class DepartmentsRepository extends BaseRepository {
      * @name findQuery
      * @description Coge la query sql "find" de la carpeta db-queries, la carga en memoria y la retorna.
      */
-     private get findQuery(): string {
+    private get findQuery(): string {
         return DepartmentsRepository._findQuery || (
             DepartmentsRepository._findQuery = fs.readFileSync(path.resolve(__dirname, './db-queries/find.query.sql'), 'utf8')
         );
+    }
+
+    /**
+     * @name updateQuery
+     * @description Coge la query sql "update" de la carpeta db-queries, la carga en memoria y la retorna.
+     * @param updaters - Listado de campos sql a actualizar.
+     * @returns Retorna la query de actualizar departamentos con el listado de campos sql a actualizar.
+     */
+    private updateQuery(updaters: string): string {
+        let query: string = DepartmentsRepository._updateQuery || (
+            DepartmentsRepository._updateQuery = fs.readFileSync(path.resolve(__dirname, './db-queries/update.query.sql'), 'utf8')
+        );
+        return query.replace(':updaters', updaters);
     }
 }
