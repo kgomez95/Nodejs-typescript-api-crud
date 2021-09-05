@@ -14,4 +14,8 @@ export default class SqlConfig {
      * Prefijo utilizado en las consultas sql con la tabla DEPARTMENTS.
      */
     public static readonly DEPARTMENTS_PREFIX: string = process.env.DATABASE_DEPARTMENTS_PREFIX || 'dep';
+    /**
+     * Prefijo utilizado en las consultas sql con la tabla EMPLOYEES.
+     */
+    public static readonly EMPLOYEES_PREFIX: string = process.env.DATABASE_EMPLOYEES_PREFIX || 'emp';
 }

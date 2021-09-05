@@ -283,7 +283,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzA3NDg1MzAsImV4cCI6MTYzMDc1MjEzMH0.NZWjOq5xGaq70NrWpQpL9eZaAb59OGHlOzfIXq2YlC8",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzA4MzM3MTksImV4cCI6MTYzMDgzNzMxOX0.ORsrI188LojzPAL8PcXgpWihy4m7dm5qBk5wh1ElILQ",
 											"type": "string"
 										}
 									]
@@ -549,6 +549,149 @@
 										"departments",
 										"delete",
 										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Employees",
+			"item": [
+				{
+					"name": "GetEmployees",
+					"item": [
+						{
+							"name": "GetEmployees_(200)",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzA4MzM3MTksImV4cCI6MTYzMDgzNzMxOX0.ORsrI188LojzPAL8PcXgpWihy4m7dm5qBk5wh1ElILQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"data\": {\r\n        \"name\": \"\",\r\n        \"last_name\": \"\",\r\n        \"nif\": \"\",\r\n        \"created_at_from\": \"2021-09-05\",\r\n        \"created_at_to\": \"2021-09-06\",\r\n        \"updated_at_from\": \"2021-09-05\",\r\n        \"updated_at_to\": \"2021-09-06\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/employees/getEmployees",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"employees",
+										"getEmployees"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create",
+					"item": [
+						{
+							"name": "Errors",
+							"item": [
+								{
+									"name": "Create_(400)_01",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzA4MzM3MTksImV4cCI6MTYzMDgzNzMxOX0.ORsrI188LojzPAL8PcXgpWihy4m7dm5qBk5wh1ElILQ",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"data\": {\r\n        \"name\": \"Prueba 1\",\r\n        \"last_name\": \"Prueba 1 ape\",\r\n        \"nif\": \"12312312P\",\r\n        \"department_id\": 1\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:5000/api/employees/create",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5000",
+											"path": [
+												"api",
+												"employees",
+												"create"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Create_(200)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzA4MzM3MTksImV4cCI6MTYzMDgzNzMxOX0.ORsrI188LojzPAL8PcXgpWihy4m7dm5qBk5wh1ElILQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"data\": {\r\n        \"name\": \"Prueba 1\",\r\n        \"last_name\": \"Prueba 1 ape\",\r\n        \"nif\": \"12312312P\",\r\n        \"department_id\": 1\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/employees/create",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"employees",
+										"create"
 									]
 								}
 							},

@@ -1,0 +1,2 @@
+SELECT emp.*
+FROM EMPLOYEES emp

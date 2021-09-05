@@ -1,3 +1,6 @@
+// Importaciones de core.
+import { EmployeeDTO } from '@core/db-models/employees/employee.dto-model';
+
 /**
  * @name DepartmentDTO
  * @description Modelo DTO de departamento de base de datos.
@@ -9,4 +12,6 @@ export class DepartmentDTO {
     public description: string = '';
     public created_at: Date = new Date();
     public updated_at: Date = new Date();
+
+    public employees?: EmployeeDTO[];
 }

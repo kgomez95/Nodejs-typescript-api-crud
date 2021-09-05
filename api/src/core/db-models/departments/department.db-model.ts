@@ -1,5 +1,6 @@
 // Importaciones de core.
 import { DepartmentDTO } from '@core/db-models/departments/department.dto-model';
+import { Employee } from '@core/db-models/employees/employee.db-model';
 
 /**
  * @name Department
@@ -12,6 +13,8 @@ export class Department {
     public description: string = '';
     public created_at: Date = new Date();
     public updated_at: Date = new Date();
+
+    public employees?: Employee[];
 
     /**
      * @name toDTO
@@ -28,7 +31,8 @@ export class Department {
             name: department.name,
             description: department.description,
             created_at: department.created_at,
-            updated_at: department.updated_at
+            updated_at: department.updated_at,
+            employees: (department.employees) ? Employee.toDTOArray(department.employees) : undefined
         };
     }
 

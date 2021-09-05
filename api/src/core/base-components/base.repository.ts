@@ -1,6 +1,7 @@
 // Importaciones de core.
 import { SqlFilter } from '@core/models/sql/sql-filter.model';
 import { SqlUpdater } from '@core/models/sql/sql-updater.model';
+import { MySqlException } from '@core/models/sql/mysql-exception.model';
 
 /**
  * @name BaseRepository
@@ -77,5 +78,15 @@ export default class BaseRepository {
         });
 
         return values;
+    }
+
+    /**
+     * @name isDuplicateException
+     * @description Comprueba si la excepción proporcionada es por una entrada duplicada.
+     * @param exception - Excepción a comprobar.
+     * @returns Retorna "true" en caso de que la excepción sea por campo duplicado o "false" en caso de que no lo sea.
+     */
+    protected isDuplicateException(exception: MySqlException): boolean {
+        return (exception) ? exception.code === 'ER_DUP_ENTRY' : false;
     }
 }

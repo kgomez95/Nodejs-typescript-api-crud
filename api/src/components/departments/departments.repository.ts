@@ -66,7 +66,7 @@ export default class DepartmentsRepository extends BaseRepository {
             if (!result[0])
                 throw new ApiException(204)
                     .setError('ERR-204', `No se han encontrado departamentos.`)
-                    .setLogMessage(`DepartmentRepository -> find -> No se han podido coger los departamento: ${JSON.stringify(filters)}`)
+                    .setLogMessage(`DepartmentRepository -> find -> No se han podido coger los departamentos: ${JSON.stringify(filters)}`)
                     .setAsDebug();
             return result;
         } catch (ex) {

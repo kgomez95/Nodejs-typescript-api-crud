@@ -38,6 +38,9 @@ export default class DepartmentsController extends BaseController {
         this._router.post(`${this.prefix}/create`, authorize, this.create.bind(this));
         this._router.put(`${this.prefix}/update/:id`, authorize, this.update.bind(this));
         this._router.delete(`${this.prefix}/delete/:id`, authorize, this.delete.bind(this));
+
+        // TODO: Hacer una acción para coger solamente un departamento.
+        
     }
 
     /**
@@ -52,7 +55,7 @@ export default class DepartmentsController extends BaseController {
 
         try {
             // Cogemos la petición comprobando a la vez que tenga los campos obligatorios informados.
-            request = this.getRequest<DepartmentDTO>(req.body);
+            request = this.getRequest<GetDepartmentsBody>(req.body);
 
             // Llama al servicio para buscar los departamentos.
             response.data = await this.departmentsService.getDepartments(request.data as GetDepartmentsBody);
@@ -76,7 +79,7 @@ export default class DepartmentsController extends BaseController {
 
         try {
             // Cogemos la petición comprobando a la vez que tenga los campos obligatorios informados.
-            request = this.getRequest<DepartmentDTO>(req.body);
+            request = this.getRequest<CreateBody>(req.body);
 
             // Comprobamos si los datos la petición tiene los campos obligatorios informados.
             this.checkRequiredData(request.data, 'code', 'name', 'description');
@@ -107,7 +110,7 @@ export default class DepartmentsController extends BaseController {
             id = Number.parseInt(req.params.id);
 
             // Cogemos la petición comprobando a la vez que tenga los campos obligatorios informados.
-            request = this.getRequest<DepartmentDTO>(req.body);
+            request = this.getRequest<UpdateBody>(req.body);
 
             if (!Number.isNaN(id)) {
                 // Llamamos al servicio para actualizar el departamento.
