@@ -124,7 +124,7 @@ export default class DepartmentsController extends BaseController {
                     .setAsWarning();
             }
         } catch (ex) {
-            response = this.getResponseException(ex, 'DepartmentsController -> create -> Se ha producido una excepción general no controlada.', request);
+            response = this.getResponseException(ex, 'DepartmentsController -> update -> Se ha producido una excepción general no controlada.', request);
         }
 
         res.status(response.status).json(response);

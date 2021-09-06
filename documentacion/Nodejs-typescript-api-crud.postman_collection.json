@@ -698,6 +698,98 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Update",
+					"item": [
+						{
+							"name": "Update_(200)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzA5NTAwMDcsImV4cCI6MTYzMDk1MzYwN30.yH_pn204Q-OAgOkY9zQ8lvtuIS3SsFo49hmjEeoQBgE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"data\": {\r\n        \"name\": \"Pepe\",\r\n        \"last_name\": \"El dolor\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/employees/update/6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"employees",
+										"update",
+										"6"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete",
+					"item": [
+						{
+							"name": "Delete_(200)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzA5NTAwMDcsImV4cCI6MTYzMDk1MzYwN30.yH_pn204Q-OAgOkY9zQ8lvtuIS3SsFo49hmjEeoQBgE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"data\": {\r\n        \"name\": \"Pepe\",\r\n        \"last_name\": \"El dolor\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/employees/update/6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"employees",
+										"update",
+										"6"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}

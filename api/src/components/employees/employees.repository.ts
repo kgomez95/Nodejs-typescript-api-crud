@@ -9,6 +9,7 @@ import BaseRepository from '@core/base-components/base.repository';
 import { SqlFilter } from '@core/models/sql/sql-filter.model';
 import { Employee } from '@core/db-models/employees/employee.db-model';
 import { MySqlException } from '@core/models/sql/mysql-exception.model';
+import { SqlUpdater } from '@core/models/sql/sql-updater.model';
 
 /**
  * @name EmployeesRepository
@@ -18,6 +19,8 @@ export default class EmployeesRepository extends BaseRepository {
     private static _findQuery: string = '';
     private static _insertQuery: string = '';
     private static _findByIdQuery: string = '';
+    private static _updateQuery: string = '';
+    private static _deleteQuery: string = '';
 
     constructor() {
         super();
@@ -120,6 +123,65 @@ export default class EmployeesRepository extends BaseRepository {
         }
     }
 
+    /**
+     * @name update
+     * @description Actualiza el empleado proporcionado en base de datos.
+     * @param id - Identificador del empleado a actualizar.
+     * @param updaters - Listado de campos a actualizar.
+     * @returns Retorna el empleado actualizado o un excepción.
+     */
+    public async update(id: number, updaters: SqlUpdater[]): Promise<Employee> {
+        try {
+            let result: any = await MySql.executeQueryParameters(this.updateQuery(this.buildUpdaters(updaters)), this.getUpdaterValues(updaters, id));
+            if (!result || !result.affectedRows)
+                throw new ApiException(404)
+                    .setError('ERR-404', `No se ha podido actualizar el empleado '${id}'.`)
+                    .setLogMessage(`EmployeesRepository -> update -> No se ha podido actualizar el empleado '${id}'.`)
+                    .setAsWarning();
+            return await this.findById(id);
+        } catch (ex) {
+            if (ex instanceof ApiException) {
+                throw ex;
+            }
+            else {
+                throw new ApiException(500)
+                    .setError('ERR-500', `Se ha producido un problema al intentar actualizar el empleado '${id}' en base de datos.`)
+                    .setLogMessage(`EmployeesRepository -> update -> Se ha producido un error al intentar actualizar el empleado '${id}' en base de datos.`)
+                    .setException(ex)
+                    .setAsError();
+            }
+        }
+    }
+
+    /**
+     * @name delete
+     * @description Borra el empleado proporcionado de base de datos.
+     * @param id - Identificador del empleado a borrar.
+     * @returns Retorna "true" en caso de borrar el empleado o una excepción.
+     */
+    public async delete(id: number): Promise<boolean> {
+        try {
+            let result: any = await MySql.executeQueryParameters(this.deleteQuery, [id]);
+            if (!result || !result.affectedRows)
+                throw new ApiException(404)
+                    .setError('ERR-404', `No se ha podido borrar el empleado '${id}'.`)
+                    .setLogMessage(`EmployeesRepository -> delete -> No se ha podido borrar el empleado '${id}'.`)
+                    .setAsWarning();
+            return true;
+        } catch (ex) {
+            if (ex instanceof ApiException) {
+                throw ex;
+            }
+            else {
+                throw new ApiException(500)
+                    .setError('ERR-500', `Se ha producido un problema al intentar borrar el empleado '${id}' en base de datos.`)
+                    .setLogMessage(`EmployeesRepository -> delete -> Se ha producido un error al intentar borrar el empleado '${id}' en base de datos.`)
+                    .setException(ex)
+                    .setAsError();
+            }
+        }
+    }
+
     //#region - Funciones para coger las queries de base de datos.
 
     /**
@@ -149,6 +211,29 @@ export default class EmployeesRepository extends BaseRepository {
     private get findByIdQuery(): string {
         return EmployeesRepository._findByIdQuery || (
             EmployeesRepository._findByIdQuery = fs.readFileSync(path.resolve(__dirname, './db-queries/find-by-id.query.sql'), 'utf8')
+        );
+    }
+
+    /**
+     * @name updateQuery
+     * @description Coge la query sql "update" de la carpeta db-queries, la carga en memoria y la retorna.
+     * @param updaters - Listado de campos sql a actualizar.
+     * @returns Retorna la query de actualizar empleados con el listado de campos sql a actualizar.
+     */
+    private updateQuery(updaters: string): string {
+        let query: string = EmployeesRepository._updateQuery || (
+            EmployeesRepository._updateQuery = fs.readFileSync(path.resolve(__dirname, './db-queries/update.query.sql'), 'utf8')
+        );
+        return query.replace(':updaters', updaters);
+    }
+
+    /**
+     * @name deleteQuery
+     * @description Coge la query sql "delete" de la carpeta db-queries, la carga en memoria y la retorna.
+     */
+    private get deleteQuery(): string {
+        return EmployeesRepository._deleteQuery || (
+            EmployeesRepository._deleteQuery = fs.readFileSync(path.resolve(__dirname, './db-queries/delete.query.sql'), 'utf8')
         );
     }
 

@@ -4,6 +4,8 @@ import { Employee } from '@core/db-models/employees/employee.db-model';
 import BaseService from '@core/base-components/base.service';
 import { SqlFilter } from '@core/models/sql/sql-filter.model';
 import OperatorTypesConstants from '@core/constants/sql/operator-types.constants';
+import { SqlUpdater } from '@core/models/sql/sql-updater.model';
+import { ApiException } from '@core/exceptions/api.exception';
 
 // Configs.
 import SqlConfig from '@configs/sql.config';
@@ -12,6 +14,7 @@ import SqlConfig from '@configs/sql.config';
 import { GetEmployeesBody } from './models/get-employees-body.model';
 import EmployeesRepository from './employees.repository';
 import { CreateBody } from './models/create-body.model';
+import { UpdateBody } from './models/update-body.model';
 
 /**
  * @name EmployeesService
@@ -58,5 +61,41 @@ export default class EmployeesService extends BaseService {
     public async createEmployee(body: CreateBody): Promise<EmployeeDTO> {
         let employee: Employee = await this.employeesRepository.insert(body.name, body.last_name, body.nif, body.department_id);
         return Employee.toDTO(employee);
+    }
+
+    /**
+     * @name updateEmployee
+     * @description Actualiza el empleado proporcionado por parámetros.
+     * @param id - Identificador del empleado a actualizar.
+     * @param body - Datos del empleado a actualizar.
+     * @returns Retorna el empleado actualizado o una excepción.
+     */
+    public async updateEmployee(id: number, body: UpdateBody): Promise<EmployeeDTO> {
+        let updaters: SqlUpdater[] = [];
+
+        // Creamos el listado de campos a actualizar.
+        this.getSqlUpdater('name', body.name, updaters);
+        this.getSqlUpdater('last_name', body.last_name, updaters);
+        this.getSqlUpdater('nif', body.nif, updaters);
+        this.getSqlUpdater('department_id', body.department_id, updaters);
+
+        if (updaters.length === 0)
+            throw new ApiException(400)
+                .setError('ERR-400', `No se ha especificado ningún campo para actualizar.`)
+                .setLogMessage(`EmployeesService -> updateEmployee -> No se ha especificado ningún campo para actualizar.`)
+                .setAsError();
+
+        let employee: Employee = await this.employeesRepository.update(id, updaters);
+        return Employee.toDTO(employee);
+    }
+
+    /**
+     * @name deleteEmployee
+     * @description Borra el empleado proporcionado por parámetros.
+     * @param id - Identificador del empleado a borrar.
+     * @returns Retorna "true" en caso de borrar el empleado o una excepción.
+     */
+    public async deleteEmployee(id: number): Promise<boolean> {
+        return await this.employeesRepository.delete(id);
     }
 }
