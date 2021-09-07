@@ -555,6 +555,54 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Get",
+					"item": [
+						{
+							"name": "Get_(200)",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzA5OTI3MzYsImV4cCI6MTYzMDk5NjMzNn0._6vEkemIhVU39aTUG12v_0sMLjSfhNL0E84s7t0dBxs",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"data\": {\r\n        \"name\": \"\",\r\n        \"last_name\": \"\",\r\n        \"nif\": \"\",\r\n        \"created_at_from\": \"2021-09-05\",\r\n        \"created_at_to\": \"2021-09-06\",\r\n        \"updated_at_from\": \"2021-09-05\",\r\n        \"updated_at_to\": \"2021-09-06\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/departments/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"departments",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -784,6 +832,42 @@
 										"employees",
 										"update",
 										"6"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get",
+					"item": [
+						{
+							"name": "Get_(200)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzA5OTI3MzYsImV4cCI6MTYzMDk5NjMzNn0._6vEkemIhVU39aTUG12v_0sMLjSfhNL0E84s7t0dBxs",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/employees/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"employees",
+										"1"
 									]
 								}
 							},

@@ -34,12 +34,43 @@ export default class EmployeesController extends BaseController {
     protected override initRoutes(): void {
         // NOTE: El 'authorize' es una importación del 'auth-middleware' y su comentido es comprobar que el peticionario
         //       esté identificado en la aplicación antes de proceder a resolver su solicitud.
+        this._router.get(`${this.prefix}/:id`, authorize, this.get.bind(this));
         this._router.get(`${this.prefix}/getEmployees`, authorize, this.getEmployees.bind(this));
         this._router.post(`${this.prefix}/create`, authorize, this.create.bind(this));
         this._router.put(`${this.prefix}/update/:id`, authorize, this.update.bind(this));
         this._router.delete(`${this.prefix}/delete/:id`, authorize, this.delete.bind(this));
+    }
 
-        // TODO: Crear la acción para coger un empleado.
+    /**
+     * @name get
+     * @description Gestiona la petición para coger un empleado.
+     * @param req - Petición del cliente.
+     * @param res - Respuesta de la API.
+     */
+    public async get(req: Request, res: Response): Promise<any> {
+        let id: number;
+        let response: ApiResponse<any> = new ApiResponse<any>();
+
+        try {
+            // Cogemos el identificador del empleado a buscar.
+            id = Number.parseInt(req.params.id);
+
+            if (!Number.isNaN(id)) {
+                // Llamamos al servicio para buscar el empleado.
+                response.data = await this.employeesService.getEmployee(id);
+                response.status = 200;
+            }
+            else {
+                throw new ApiException(400)
+                    .setError('ERR-400', `El identificador '${req.params.id}' no es válido.`, 'El valor proporcionado no corresponde a un identificador de empleados.')
+                    .setLogMessage(`EmployeesController -> get -> El identificador proporcionado del empleado no es válido: '${req.params.id}'`)
+                    .setAsWarning();
+            }
+        } catch (ex) {
+            response = this.getResponseException(ex, 'EmployeesController -> get -> Se ha producido una excepción general no controlada.', req.params.id);
+        }
+
+        res.status(response.status).json(response);
     }
 
     /**

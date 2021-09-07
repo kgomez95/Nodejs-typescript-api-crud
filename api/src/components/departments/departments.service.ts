@@ -29,6 +29,17 @@ export default class DepartmentsService extends BaseService {
     }
 
     /**
+     * @name getDepartment
+     * @description Busca el departamento proporcionado por parámetros.
+     * @param id - Identificador del departamento a buscar.
+     * @returns Retorna el departamento o una excepción.
+     */
+    public async getDepartment(id: number): Promise<DepartmentDTO> {
+        let department: Department = await this.departmentsRepository.findById(id);
+        return Department.toDTO(department);
+    }
+
+    /**
      * @name getDepartments
      * @description Busca los departamentos proporcionado por parámetros.
      * @param body - Datos para filtrar departamentos.

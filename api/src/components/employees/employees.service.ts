@@ -29,6 +29,17 @@ export default class EmployeesService extends BaseService {
     }
 
     /**
+     * @name getEmployee
+     * @description Busca el empleado proporcionado por parámetros.
+     * @param id - Identificador del empleado a buscar.
+     * @returns Retorna el empleado o una excepción.
+     */
+    public async getEmployee(id: number): Promise<EmployeeDTO> {
+        let employee: Employee = await this.employeesRepository.findById(id);
+        return Employee.toDTO(employee);
+    }
+
+    /**
      * @name getEmployees
      * @description Busca los empleados proporcionados por parámetros.
      * @param body - Datos para filtrar empleados.
