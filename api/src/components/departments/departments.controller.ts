@@ -34,7 +34,7 @@ export default class DepartmentsController extends BaseController {
     protected override initRoutes(): void {
         // NOTE: El 'authorize' es una importación del 'auth-middleware' y su comentido es comprobar que el peticionario
         //       esté identificado en la aplicación antes de proceder a resolver su solicitud.
-        this._router.get(`${this.prefix}/:id`, authorize, this.get.bind(this));
+        this._router.get(`${this.prefix}/get/:id`, authorize, this.get.bind(this));
         this._router.get(`${this.prefix}/getDepartments`, authorize, this.getDepartments.bind(this));
         this._router.post(`${this.prefix}/create`, authorize, this.create.bind(this));
         this._router.put(`${this.prefix}/update/:id`, authorize, this.update.bind(this));

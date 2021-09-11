@@ -283,7 +283,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzA4MzM3MTksImV4cCI6MTYzMDgzNzMxOX0.ORsrI188LojzPAL8PcXgpWihy4m7dm5qBk5wh1ElILQ",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzEzNTE1NzMsImV4cCI6MTYzMTM1NTE3M30.C9X6i2_W3NgyTe27VY-S6Kfn0YflodE6vQwKovJuSec",
 											"type": "string"
 										}
 									]
@@ -570,7 +570,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzA5OTI3MzYsImV4cCI6MTYzMDk5NjMzNn0._6vEkemIhVU39aTUG12v_0sMLjSfhNL0E84s7t0dBxs",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzEzNTE1NzMsImV4cCI6MTYzMTM1NTE3M30.C9X6i2_W3NgyTe27VY-S6Kfn0YflodE6vQwKovJuSec",
 											"type": "string"
 										}
 									]
@@ -587,7 +587,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:5000/api/departments/1",
+									"raw": "http://localhost:5000/api/departments/get/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -596,6 +596,7 @@
 									"path": [
 										"api",
 										"departments",
+										"get",
 										"1"
 									]
 								}
@@ -850,7 +851,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzA5OTI3MzYsImV4cCI6MTYzMDk5NjMzNn0._6vEkemIhVU39aTUG12v_0sMLjSfhNL0E84s7t0dBxs",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzEzNTE1NzMsImV4cCI6MTYzMTM1NTE3M30.C9X6i2_W3NgyTe27VY-S6Kfn0YflodE6vQwKovJuSec",
 											"type": "string"
 										}
 									]
@@ -858,7 +859,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:5000/api/employees/1",
+									"raw": "http://localhost:5000/api/employees/get/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -867,6 +868,7 @@
 									"path": [
 										"api",
 										"employees",
+										"get",
 										"1"
 									]
 								}
