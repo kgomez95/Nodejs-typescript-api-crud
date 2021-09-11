@@ -274,21 +274,18 @@
 					"item": [
 						{
 							"name": "GetDepartments_(200)",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzEzNTE1NzMsImV4cCI6MTYzMTM1NTE3M30.C9X6i2_W3NgyTe27VY-S6Kfn0YflodE6vQwKovJuSec",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzEzNTU4NjMsImV4cCI6MTYzMTM1OTQ2M30.5UQ4HAFZJWF9tIRB8SwHgULRGSO_1vOT9XM3eoLUkcs",
 											"type": "string"
 										}
 									]
 								},
-								"method": "GET",
+								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
@@ -615,21 +612,18 @@
 					"item": [
 						{
 							"name": "GetEmployees_(200)",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzA4MzM3MTksImV4cCI6MTYzMDgzNzMxOX0.ORsrI188LojzPAL8PcXgpWihy4m7dm5qBk5wh1ElILQ",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2MzEzNTU4NjMsImV4cCI6MTYzMTM1OTQ2M30.5UQ4HAFZJWF9tIRB8SwHgULRGSO_1vOT9XM3eoLUkcs",
 											"type": "string"
 										}
 									]
 								},
-								"method": "GET",
+								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
